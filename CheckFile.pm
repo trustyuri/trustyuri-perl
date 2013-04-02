@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Utils;
 use FileHasher;
+use LWP::Simple;
 
 our $VERSION = '0.01';
 
@@ -15,7 +16,14 @@ sub check {
 	if ($data_part !~ m/^FA/) {
 		die "Unknown algorithm";
 	}
-	my $hash = HashUri::FileHasher::make_hash $file_name;
+	my $content = get($file_name);
+	if (!$content) {
+		open(IN, $file_name) or die "Cannot read file";
+		local $/;
+		$content = <IN>;
+		close (IN);
+	}
+	my $hash = HashUri::FileHasher::make_hash $content;
 	if ($data_part eq $hash) {
 		print "Correct hash: " . $hash . "\n";
 	} else {
