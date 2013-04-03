@@ -8,4 +8,3 @@ License
 -------
 
 hashuri-perl is free software under the MIT License. See LICENSE.txt.
-

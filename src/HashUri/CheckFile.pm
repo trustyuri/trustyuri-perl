@@ -2,8 +2,9 @@ package HashUri::CheckFile;
 
 use strict;
 use warnings;
-use Utils;
-use FileHasher;
+use HashUri::Utils;
+use HashUri::ModuleDirectory;
+use HashUri::File::FileHasher;
 use LWP::Simple;
 
 our $VERSION = '0.01';
@@ -23,13 +24,13 @@ sub check {
 		$content = <IN>;
 		close (IN);
 	}
-	my $hash = HashUri::FileHasher::make_hash $content;
-	if ($data_part eq $hash) {
-		print "Correct hash: " . $hash . "\n";
+	my $algorithm_id = substr($data_part, 0, 2);
+	my $module = HashUri::ModuleDirectory::get_module $algorithm_id;
+	if ($module->is_correct_hash($content, $data_part)) {
+		print "Correct hash: " . $data_part . "\n";
 	} else {
 		print "*** INCORRECT HASH ***" . "\n";
 	}
 }
 
 1;
-

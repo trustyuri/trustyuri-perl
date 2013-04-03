@@ -25,4 +25,3 @@ sub get_base64 {
 }
 
 1;
-
