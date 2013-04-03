@@ -14,7 +14,9 @@ sub check {
 	$file_name or die "No file name given";
 	my $data_part = HashUri::Utils::get_hashuri_datapart($file_name);
 	$data_part or die "No hash in file name";
-	if ($data_part !~ m/^FA/) {
+	my $algorithm_id = substr($data_part, 0, 2);
+	my $module = HashUri::ModuleDirectory::get_module $algorithm_id;
+	if (!$module) {
 		die "Unknown algorithm";
 	}
 	my $content = get($file_name);
@@ -24,8 +26,6 @@ sub check {
 		$content = <IN>;
 		close (IN);
 	}
-	my $algorithm_id = substr($data_part, 0, 2);
-	my $module = HashUri::ModuleDirectory::get_module $algorithm_id;
 	if ($module->is_correct_hash($content, $data_part)) {
 		print "Correct hash: " . $data_part . "\n";
 	} else {

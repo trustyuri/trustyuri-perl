@@ -11,7 +11,8 @@ no warnings 'redefine';
 our $VERSION = '0.01';
 
 sub make_hash {
-	return HashUri::File::FileModule::algorithm_id() . HashUri::Utils::get_base64(sha256($_[0]));
+	my $content = shift;
+	return HashUri::File::FileModule::algorithm_id() . HashUri::Utils::get_base64(sha256($content));
 }
 
 1;

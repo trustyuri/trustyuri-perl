@@ -1,9 +1,9 @@
-package HashUri::File::FileModule;
+package HashUri::Rdf::RdfModule;
 
 use strict;
 use warnings;
 use HashUri::HashUriModule;
-use HashUri::File::FileHasher;
+use HashUri::Rdf::RdfHasher;
 
 no warnings 'redefine';
 
@@ -17,13 +17,13 @@ sub new {
 	return $self;
 }
 
-sub algorithm_id { "FA" }
+sub algorithm_id { "RA" }
 
 sub is_correct_hash {
 	my $self = shift;
 	my $content = shift;
 	my $hash = shift;
-	my $h = HashUri::File::FileHasher::make_hash $content;
+	my $h = HashUri::Rdf::RdfHasher::make_hash($hash, $content);
 	return ($hash eq $h);
 }
 
