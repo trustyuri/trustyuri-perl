@@ -10,7 +10,7 @@ use LWP::Simple;
 our $VERSION = '0.01';
 
 sub check {
-	my $file_name = $_[0];
+	my $file_name = shift;
 	$file_name or die "No file name given";
 	my $data_part = HashUri::Utils::get_hashuri_datapart($file_name);
 	$data_part or die "No hash in file name";
