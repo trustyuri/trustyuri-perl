@@ -15,9 +15,17 @@ our $VERSION = '0.01';
 sub make_hash {
 	my $hash = shift;
 	my $content = shift;
-	my $parser = RDF::Trine::Parser->new('trig');
 	my $model = RDF::Trine::Model->new();
-	$parser->parse_into_model("http://foo.org", $content, $model);
+	my $err = "";
+	eval { RDF::Trine::Parser->new('trig')->parse_into_model("http://foo.org", $content, $model) };
+	if ($@) {
+		$err .= $@;
+		eval { RDF::Trine::Parser->new('nquads')->parse_into_model("http://foo.org", $content, $model) }
+	};
+	if ($@) {
+		$err .= $@;
+		die "No RDF parser succeeded (tried TriG and N-Quads):\n$err";
+	}
 	my $next = $model->as_stream();
 	my @statements;
 	while ( my $item = $next->() ) {
