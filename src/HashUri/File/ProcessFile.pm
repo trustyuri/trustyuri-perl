@@ -15,7 +15,14 @@ sub process {
 	my $content = <IN>;
 	close (IN);
 	my $hash = HashUri::File::FileHasher::make_hash $content;
-	my $new_file_name = $file_name . "." . $hash;
+	my $ext = "";
+	my $base = $file_name;
+	if ($file_name =~ /.\.[A-Za-z0-9\-_]{0,20}$/) {
+		$ext = $file_name;
+		$ext =~ s/^(.*)(\.[A-Za-z0-9\-_]{0,20})$/$2/;
+		$base =~ s/^(.*)(\.[A-Za-z0-9\-_]{0,20})$/$1/;
+	}
+	my $new_file_name = $base . "." . $hash . $ext;
 	move $file_name, $new_file_name;
 }
 

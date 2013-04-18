@@ -29,7 +29,7 @@ sub check {
 	if ($module->is_correct_hash($content, $data_part)) {
 		print "Correct hash: " . $data_part . "\n";
 	} else {
-		print "*** INCORRECT HASH ***" . "\n";
+		print "*** INCORRECT HASH ***\n";
 	}
 }
 
