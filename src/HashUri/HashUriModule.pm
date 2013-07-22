@@ -9,6 +9,6 @@ our $VERSION = '0.01';
 
 sub algorithm_id {}
 
-sub is_correct_hash {}
+sub has_correct_hash {}
 
 1;

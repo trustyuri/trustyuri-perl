@@ -13,18 +13,16 @@ no warnings 'redefine';
 our $VERSION = '0.01';
 
 sub make_hash {
-	my $hash = shift;
-	my $content = shift;
+	my $resource = shift;
+	my $hash = $resource->get_hash();
+	my $content = $resource->get_content();
+	my $filename = $resource->get_filename();
 	my $model = RDF::Trine::Model->new();
 	my $err = "";
-	eval { RDF::Trine::Parser->new('trig')->parse_into_model("http://foo.org", $content, $model) };
+	eval { RDF::Trine::Parser->guess_parser_by_filename($filename)->parse_into_model("http://foo.org", $content, $model) };
 	if ($@) {
 		$err .= $@;
-		eval { RDF::Trine::Parser->new('nquads')->parse_into_model("http://foo.org", $content, $model) }
-	};
-	if ($@) {
-		$err .= $@;
-		die "No RDF parser succeeded (tried TriG and N-Quads):\n$err";
+		die "No RDF parser succeeded:\n$err";
 	}
 	my $next = $model->as_stream();
 	my @statements;
@@ -60,6 +58,8 @@ sub value_to_string {
 		} else {
 			return '#' . escape_string($v->literal_value()) . "\n";
 		}
+	} elsif ($v->isa('RDF::Trine::Node::Nil')) {
+		return "\n";
 	} else {
 		die "Unknown element";
 	}

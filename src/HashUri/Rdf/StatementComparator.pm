@@ -33,8 +33,14 @@ sub compare_context {
 	my $s2 = shift;
 	my $r1 = $s1->context();
 	my $r2 = $s2->context();
-	if (!$r1 || !$r2) {
-		die "Context of statement is empty";
+	if ($r1->isa('RDF::Trine::Node::Nil' && $r2->isa('RDF::Trine::Node::Nil'))) {
+		return 0;
+	}
+	if ($r1->isa('RDF::Trine::Node::Nil')) {
+		return -1;
+	}
+	if ($r2->isa('RDF::Trine::Node::Nil')) {
+		return 1;
 	}
 	return $self->compare_uri($r1, $r2);
 }

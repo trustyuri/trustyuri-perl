@@ -19,11 +19,11 @@ sub new {
 
 sub algorithm_id { "FA" }
 
-sub is_correct_hash {
+sub has_correct_hash {
 	my $self = shift;
-	my $content = shift;
-	my $hash = shift;
-	my $h = HashUri::File::FileHasher::make_hash $content;
+	my $resource = shift;
+	my $hash = $resource->get_hash();
+	my $h = HashUri::File::FileHasher::make_hash $resource->get_content();
 	return ($hash eq $h);
 }
 

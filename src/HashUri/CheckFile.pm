@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use HashUri::Utils;
 use HashUri::ModuleDirectory;
+use HashUri::HashUriResource;
 use HashUri::File::FileHasher;
 use LWP::Simple;
 
@@ -26,7 +27,8 @@ sub check {
 		$content = <IN>;
 		close (IN);
 	}
-	if ($module->is_correct_hash($content, $data_part)) {
+	my $resource = HashUri::HashUriResource->new($file_name, $content, $data_part);
+	if ($module->has_correct_hash($resource)) {
 		print "Correct hash: " . $data_part . "\n";
 	} else {
 		print "*** INCORRECT HASH ***\n";
