@@ -3,10 +3,13 @@ hashuri-perl
 
 Hash-URI implementation for Perl. Under construction...
 
-Needs latest perlrdf version from GitHub repository:
 
-    export PERL5LIB=~/Packages/perlrdf/RDF-Trine/lib:$PERL5LIB
+Dependencies
+------------
 
+The Perl module `RDF::Trine` has to be installed:
+
+    $ cpan RDF::Trine
 
 License
 -------
