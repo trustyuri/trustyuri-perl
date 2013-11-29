@@ -13,8 +13,11 @@ sub run {
 	my $file_name = shift;
 	$file_name or die "No file name given";
 	open my $file, $file_name or die "Could not open $file_name: $!";
-	while( my $line = <$file>)  {
+	while (my $line = <$file>)  {
 		$line =~ s/^\s+|\s+$//g;
+		if ($line =~ /^#|^$/) {
+			next;
+		}
 		print "COMMAND: $line\n";
 		my @cmdargs  = split(' ', $line);
 		my $cmd = shift @cmdargs;
@@ -35,7 +38,6 @@ sub run {
 		my $t = Time::HiRes::tv_interval($starttime);
 		print "Time in seconds: $t\n";
 		print "---\n";
-		last if $. == 2;
 	}
 }
 
