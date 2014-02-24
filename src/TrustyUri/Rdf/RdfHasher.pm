@@ -38,7 +38,7 @@ sub make_hash {
 		$s .= value_to_string($hash, $item->predicate());
 		$s .= value_to_string($hash, $item->object());
 	}
-	return TrustyUri::Rdf::RdfModule::algorithm_id() . TrustyUri::Utils::get_base64(sha256($s));
+	return TrustyUri::Rdf::RdfModule::module_id() . TrustyUri::Utils::get_base64(sha256($s));
 }
 
 sub value_to_string {

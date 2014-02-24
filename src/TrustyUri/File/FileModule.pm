@@ -17,7 +17,7 @@ sub new {
 	return $self;
 }
 
-sub algorithm_id { "FA" }
+sub module_id { "FA" }
 
 sub has_correct_hash {
 	my $self = shift;

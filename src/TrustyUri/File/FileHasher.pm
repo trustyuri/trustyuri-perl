@@ -12,7 +12,7 @@ our $VERSION = '0.01';
 
 sub make_hash {
 	my $content = shift;
-	return TrustyUri::File::FileModule::algorithm_id() . TrustyUri::Utils::get_base64(sha256($content));
+	return TrustyUri::File::FileModule::module_id() . TrustyUri::Utils::get_base64(sha256($content));
 }
 
 1;

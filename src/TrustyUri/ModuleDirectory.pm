@@ -14,7 +14,7 @@ add_module(TrustyUri::Rdf::RdfModule->new());
 
 sub add_module {
 	my $m = shift;
-	$modules{$m->algorithm_id} = $m;
+	$modules{$m->module_id} = $m;
 }
 
 sub get_module {

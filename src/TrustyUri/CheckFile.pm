@@ -15,10 +15,10 @@ sub check {
 	$file_name or die "No file name given";
 	my $tail = TrustyUri::Utils::get_trustyuri_tail($file_name);
 	$tail or die "No hash in file name";
-	my $algorithm_id = substr($tail, 0, 2);
-	my $module = TrustyUri::ModuleDirectory::get_module $algorithm_id;
+	my $module_id = substr($tail, 0, 2);
+	my $module = TrustyUri::ModuleDirectory::get_module $module_id;
 	if (!$module) {
-		die "Unknown algorithm";
+		die "Unknown module";
 	}
 	my $content = get($file_name);
 	if (!$content) {
