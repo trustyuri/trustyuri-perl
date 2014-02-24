@@ -1,8 +1,8 @@
-package HashUri::File::ProcessFile;
+package TrustyUri::File::ProcessFile;
 
 use strict;
 use warnings;
-use HashUri::File::FileHasher;
+use TrustyUri::File::FileHasher;
 use File::Copy qw(move);
 
 our $VERSION = '0.01';
@@ -14,7 +14,7 @@ sub process {
 	local $/;
 	my $content = <IN>;
 	close (IN);
-	my $hash = HashUri::File::FileHasher::make_hash $content;
+	my $hash = TrustyUri::File::FileHasher::make_hash $content;
 	my $ext = "";
 	my $base = $file_name;
 	if ($file_name =~ /.\.[A-Za-z0-9\-_]{0,20}$/) {

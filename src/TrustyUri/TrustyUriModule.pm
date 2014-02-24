@@ -1,11 +1,11 @@
-package HashUri::HashUriModule;
+package TrustyUri::TrustyUriModule;
 
 use strict;
 use warnings;
 
 our $VERSION = '0.01';
 
-# superclass for hashURI modules
+# superclass for trusty URI modules
 
 sub algorithm_id {}
 

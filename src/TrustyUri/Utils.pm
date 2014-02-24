@@ -1,4 +1,4 @@
-package HashUri::Utils;
+package TrustyUri::Utils;
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use MIME::Base64 qw(encode_base64);
 
 our $VERSION = '0.01';
 
-sub get_hashuri_datapart {
+sub get_trustyuri_tail {
 	my $s = $_[0];
 	if (!$s || $s !~ m/(.*[^A-Za-z0-9\-_]|)[A-Za-z0-9\-_]{25,}(\.[A-Za-z0-9\-_]{0,20})?/) {
 		return "";

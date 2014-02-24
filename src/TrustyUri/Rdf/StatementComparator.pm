@@ -1,4 +1,4 @@
-package HashUri::Rdf::StatementComparator;
+package TrustyUri::Rdf::StatementComparator;
 
 use strict;
 use warnings;

@@ -1,13 +1,13 @@
-package HashUri::Rdf::RdfModule;
+package TrustyUri::File::FileModule;
 
 use strict;
 use warnings;
-use HashUri::HashUriModule;
-use HashUri::Rdf::RdfHasher;
+use TrustyUri::TrustyUriModule;
+use TrustyUri::File::FileHasher;
 
 no warnings 'redefine';
 
-our @ISA = qw(HashUri::HashUriModule);
+our @ISA = qw(TrustyUri::TrustyUriModule);
 our $VERSION = '0.01';
 
 sub new {
@@ -17,13 +17,13 @@ sub new {
 	return $self;
 }
 
-sub algorithm_id { "RA" }
+sub algorithm_id { "FA" }
 
 sub has_correct_hash {
 	my $self = shift;
 	my $resource = shift;
 	my $hash = $resource->get_hash();
-	my $h = HashUri::Rdf::RdfHasher::make_hash($resource);
+	my $h = TrustyUri::File::FileHasher::make_hash $resource->get_content();
 	return ($hash eq $h);
 }
 

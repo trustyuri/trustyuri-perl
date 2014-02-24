@@ -1,9 +1,9 @@
-package HashUri::RunBatch;
+package TrustyUri::RunBatch;
 
 use strict;
 use warnings;
-use HashUri::CheckFile;
-use HashUri::File::ProcessFile;
+use TrustyUri::CheckFile;
+use TrustyUri::File::ProcessFile;
 use LWP::Simple;
 use Time::HiRes;
 
@@ -24,9 +24,9 @@ sub run {
 		my $starttime = [Time::HiRes::gettimeofday()];
 		eval {
 			if ($cmd eq "CheckFile") {
-				HashUri::CheckFile::check(@cmdargs);
+				TrustyUri::CheckFile::check(@cmdargs);
 			} elsif ($cmd eq "ProcessFile") {
-				HashUri::File::ProcessFile::process(@cmdargs);
+				TrustyUri::File::ProcessFile::process(@cmdargs);
 			} else {
 				print "ERROR: Unrecognized command $cmd";
 				exit 1;

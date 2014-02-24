@@ -1,4 +1,4 @@
-package HashUri::HashUriResource;
+package TrustyUri::TrustyUriResource;
 
 use strict;
 use warnings;

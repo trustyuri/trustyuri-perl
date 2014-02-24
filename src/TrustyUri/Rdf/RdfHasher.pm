@@ -1,10 +1,10 @@
-package HashUri::Rdf::RdfHasher;
+package TrustyUri::Rdf::RdfHasher;
 
 use strict;
 use warnings;
-use HashUri::Utils;
-use HashUri::Rdf::RdfModule;
-use HashUri::Rdf::StatementComparator;
+use TrustyUri::Utils;
+use TrustyUri::Rdf::RdfModule;
+use TrustyUri::Rdf::StatementComparator;
 use Digest::SHA qw(sha256);
 use RDF::Trine::Parser;
 
@@ -29,7 +29,7 @@ sub make_hash {
 	while ( my $item = $next->() ) {
 		push @statements, $item;
 	}
-	my $comparator = HashUri::Rdf::StatementComparator->new($hash);
+	my $comparator = TrustyUri::Rdf::StatementComparator->new($hash);
 	my @sorted = sort { $comparator->compare($a, $b) } @statements;
 	my $s = "";
 	foreach my $item(@sorted) {
@@ -38,7 +38,7 @@ sub make_hash {
 		$s .= value_to_string($hash, $item->predicate());
 		$s .= value_to_string($hash, $item->object());
 	}
-	return HashUri::Rdf::RdfModule::algorithm_id() . HashUri::Utils::get_base64(sha256($s));
+	return TrustyUri::Rdf::RdfModule::algorithm_id() . TrustyUri::Utils::get_base64(sha256($s));
 }
 
 sub value_to_string {
