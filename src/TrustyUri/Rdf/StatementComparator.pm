@@ -33,7 +33,7 @@ sub compare_context {
 	my $s2 = shift;
 	my $r1 = $s1->context();
 	my $r2 = $s2->context();
-	if ($r1->isa('RDF::Trine::Node::Nil' && $r2->isa('RDF::Trine::Node::Nil'))) {
+	if ($r1->isa('RDF::Trine::Node::Nil') && $r2->isa('RDF::Trine::Node::Nil')) {
 		return 0;
 	}
 	if ($r1->isa('RDF::Trine::Node::Nil')) {
@@ -64,7 +64,7 @@ sub compare_object {
 	my $s1 = shift;
 	my $s2 = shift;
 	my $v1 = $s1->object();
-	my $v2 = $s1->object();
+	my $v2 = $s2->object();
 	if ($v1->isa('RDF::Trine::Node::Literal') && !$v2->isa('RDF::Trine::Node::Literal')) {
 		return 1;
 	} elsif (!$v1->isa('RDF::Trine::Node::Literal') && $v2->isa('RDF::Trine::Node::Literal')) {
@@ -86,7 +86,13 @@ sub compare_literal {
 		return $x1 cmp $x2;
 	}
 	$x1 = $l1->literal_datatype();
+	if (!$x1 && !($l1->literal_value_language())) {
+		$x1 = 'http://www.w3.org/2001/XMLSchema#string';
+	}
 	$x2 = $l2->literal_datatype();
+	if (!$x2 && !($l2->literal_value_language())) {
+		$x2 = 'http://www.w3.org/2001/XMLSchema#string';
+	}
 	if (!$x1 && $x2) {
 		return -1;
 	} elsif ($x1 && !$x2) {

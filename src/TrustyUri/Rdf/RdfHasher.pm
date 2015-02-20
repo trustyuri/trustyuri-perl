@@ -32,12 +32,18 @@ sub make_hash {
 	my $comparator = TrustyUri::Rdf::StatementComparator->new($hash);
 	my @sorted = sort { $comparator->compare($a, $b) } @statements;
 	my $s = "";
+	my $previous = "";
 	foreach my $item(@sorted) {
-		$s .= value_to_string($hash, $item->context());
-		$s .= value_to_string($hash, $item->subject());
-		$s .= value_to_string($hash, $item->predicate());
-		$s .= value_to_string($hash, $item->object());
+		if ($item ne $previous) {
+			$s .= value_to_string($hash, $item->context());
+			$s .= value_to_string($hash, $item->subject());
+			$s .= value_to_string($hash, $item->predicate());
+			$s .= value_to_string($hash, $item->object());
+		}
+		$previous = $item;
 	}
+    # Uncomment next line to see what goes into the hash:
+	#print "-----\n" . $s . "-----\n";
 	return TrustyUri::Rdf::RdfModule::module_id() . TrustyUri::Utils::get_base64(sha256($s));
 }
 
