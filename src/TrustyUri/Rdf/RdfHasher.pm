@@ -51,13 +51,13 @@ sub value_to_string {
 		$uri =~ s/$hash/ /g;
 		return $uri . "\n";
 	} elsif ($v->isa('RDF::Trine::Node::Literal')) {
-		if ($v->has_datatype()) {
+		if ($v->has_language()) {
+			# TODO: perform proper canonicalization of language tag!
+			return '@' . lc($v->literal_value_language()) . " " . escape_string($v->literal_value()) . "\n";
+		} elsif ($v->has_datatype()) {
 			return '^' . $v->literal_datatype() . " " . escape_string($v->literal_value()) . "\n";
-		} elsif ($v->has_language()) {
-			return '@' . $v->literal_value_language() . " " . escape_string($v->literal_value()) . "\n";
-		} else {
-			return '#' . escape_string($v->literal_value()) . "\n";
 		}
+		return "^http://www.w3.org/2001/XMLSchema#string " . escape_string($v->literal_value()) . "\n";
 	} elsif ($v->isa('RDF::Trine::Node::Nil')) {
 		return "\n";
 	} else {
