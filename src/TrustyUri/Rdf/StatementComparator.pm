@@ -56,7 +56,7 @@ sub compare_predicate {
 	my $self = shift;
 	my $s1 = shift;
 	my $s2 = shift;
-	return $self->compare_uri($s1->subject(), $s2->subject());
+	return $self->compare_uri($s1->predicate(), $s2->predicate());
 }
 
 sub compare_object {
