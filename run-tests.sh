@@ -33,6 +33,7 @@ ls testsuite/FA/pre/* \
   | xargs -n 1 basename \
   | awk '{ print " \
       echo \"Processing file: testsuite/FA/pre/"$1"\"; \
+      rm -rf temp; \
       mkdir temp; \
       cp testsuite/FA/pre/"$1" temp/; \
       scripts/ProcessFile.sh temp/"$1"; \
